@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Class: "A",
       "Require Voucher": "Yes",
       Prize: "Michael Kors Men Wallet",
+      isFeatured: true,
     },
     {
       ID: 9,
@@ -100,6 +101,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Class: "A",
       "Require Voucher": "Yes",
       Prize: "70$",
+      isFeatured: true,
     },
     {
       ID: 12,
@@ -127,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Class: "A",
       "Require Voucher": "Yes",
       Prize: "4 Persons Lunch",
+      isFeatured: true,
     },
     {
       ID: 15,
@@ -343,6 +346,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Class: "A",
       "Require Voucher": "Yes",
       Prize: "50$ Lunch for 2 (Reservation Required)",
+      isFeatured: true,
     },
     {
       ID: 39,
@@ -699,22 +703,44 @@ document.addEventListener("DOMContentLoaded", function () {
       ID: 78,
       Name: "GCS",
       "G/V": "G",
-      Number: 3,
+      Number: 1,
       Class: "A",
       "Require Voucher": "No",
-      Prize: "Laptop / Mouse / Accessories",
+      Prize: "Accessories",
+      isFeatured: true,
     },
     {
       ID: 79,
+      Name: "GCS",
+      "G/V": "G",
+      Number: 1,
+      Class: "A",
+      "Require Voucher": "No",
+      Prize: "Tablet",
+      isFeatured: true,
+    },
+    {
+      ID: 80,
+      Name: "GCS",
+      "G/V": "G",
+      Number: 1,
+      Class: "A",
+      "Require Voucher": "No",
+      Prize: "Laptop",
+      isFeatured: true,
+    },
+    {
+      ID: 81,
       Name: "Issa Haddad",
       "G/V": "G",
       Number: 1,
       Class: "A",
       "Require Voucher": "No",
       Prize: "",
+      isFeatured: true,
     },
     {
-      ID: 80,
+      ID: 82,
       Name: "Chedid Library",
       "G/V": "V",
       Number: 2,
@@ -723,7 +749,7 @@ document.addEventListener("DOMContentLoaded", function () {
       Prize: "2x 500000L.L",
     },
     {
-      ID: 81,
+      ID: 83,
       Name: "Sunsip Ehden",
       "G/V": "V",
       Number: 2,
@@ -732,48 +758,75 @@ document.addEventListener("DOMContentLoaded", function () {
       Prize: "2x Open Wings And Beer",
     },
   ];
+  const flyerImages = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg"];
 
-  prizes.reverse().forEach((prize) => {
-    const prizeCard = document.createElement("div");
-    prizeCard.className = "col-md-4";
+  const flyersContainer = document.getElementById("flyers");
 
-    prizeCard.innerHTML = `
+  function displayPrizes(prizes) {
+    prizes
+      .filter((prize) => prize.isFeatured)
+      .reverse()
+      .forEach((prize) => {
+        const prizeCard = document.createElement("div");
+        prizeCard.className = "col-md-4";
+
+        prizeCard.innerHTML = `
             <div class="card">
-                <img src="${prize.Logo}" class="card-img-top" alt="${prize.Name}">
+                <img src="${prize.Logo}" class="card-img-top" alt="${
+          prize.Name
+        }">
                 <div class="card-body">
                     <h5 class="card-title">${prize.Name}</h5>
-                    <p class="card-text">${prize.Prize}</p>
-                    <a href="https://api.whatsapp.com/send/?phone=96181685499&text=Hello+I+want+to+buy+a+tombola+ticket&type=phone_number&app_absent=0" class="btn buy-ticket-btn">Buy Ticket Now</a>
+                    <p class="card-text">${prize.Prize || "TBD"}</p>
+                    <a href="https://api.whatsapp.com/send/?phone=96181685499&text=Hello+I+want+to+buy+a+tombola+ticket&type=phone_number&app_absent=0" class="btn buy-ticket-btn">Buy Tombola For Only 100,000L.L</a>
                 </div>
             </div>
         `;
 
-    prizesContainer.appendChild(prizeCard);
-  });
+        prizesContainer.appendChild(prizeCard);
+      });
+    prizes
+      .filter((prize) => !prize.isFeatured)
+      .sort((a, b) => a.Class.localeCompare(b.Class))
+      .forEach((prize) => {
+        const prizeCard = document.createElement("div");
+        prizeCard.className = "col-md-4";
 
-  const flyersContainer = document.getElementById("flyers");
+        prizeCard.innerHTML = `
+            <div class="card">
+                <img src="${prize.Logo}" class="card-img-top" alt="${
+          prize.Name
+        }">
+                <div class="card-body">
+                    <h5 class="card-title">${prize.Name}</h5>
+                    <p class="card-text">${prize.Prize || "TBD"}</p>
+                    <a href="https://api.whatsapp.com/send/?phone=96181685499&text=Hello+I+want+to+buy+a+tombola+ticket&type=phone_number&app_absent=0" class="btn buy-ticket-btn">Buy Tombola For Only 100,000L.L</a>
+                </div>
+            </div>
+        `;
 
-  // Array of flyer image filenames (assuming you know the filenames or they are dynamically obtained)
-  const flyerImages = [
-    "1.jpg",
-    "2.jpg",
-    "3.jpg",
-    "4.jpg",
-    "5.jpg",
-    // Add more filenames as needed
-  ];
+        prizesContainer.appendChild(prizeCard);
+      });
 
-  // Function to create image elements and append them to the container
+    document.getElementById(
+      "prizes-title"
+    ).innerHTML = `Tombola Prizes - (${prizes.reduce(
+      (acc, prize) => acc + prize.Number,
+      0
+    )} Prizes)`;
+  }
+
   function displayFlyerImages(images) {
     images.forEach((image) => {
       const imgElement = document.createElement("img");
       imgElement.src = `./assets/flyers/${image}`;
       imgElement.alt = "Flyer";
-      imgElement.classList.add("img-fluid", "my-3"); // Bootstrap class for responsive images
+      imgElement.classList.add("img-fluid", "my-3");
       flyersContainer.appendChild(imgElement);
     });
   }
 
-  // Call the function to display flyer images
+  displayPrizes(prizes);
+
   displayFlyerImages(flyerImages);
 });
