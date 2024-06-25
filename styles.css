@@ -1,6 +1,11 @@
 body {
+  margin-top: 5rem;
   background-color: #f8f9fa;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
+}
+.navbar-brand img {
+  max-height: 40px;
+  width: auto;
 }
 
 h1 {

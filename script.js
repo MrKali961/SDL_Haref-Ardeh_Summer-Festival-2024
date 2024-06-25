@@ -743,11 +743,37 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="card-body">
                     <h5 class="card-title">${prize.Name}</h5>
                     <p class="card-text">${prize.Prize}</p>
-                    <a href="https://wa.me/?text=I%20want%20to%20buy%20a%20ticket%20for%20${prize.Name}" class="btn buy-ticket-btn">Buy Ticket Now</a>
+                    <a href="https://api.whatsapp.com/send/?phone=96181685499&text=Hello+I+want+to+buy+a+tombola+ticket&type=phone_number&app_absent=0" class="btn buy-ticket-btn">Buy Ticket Now</a>
                 </div>
             </div>
         `;
 
     prizesContainer.appendChild(prizeCard);
   });
+
+  const flyersContainer = document.getElementById("flyers");
+
+  // Array of flyer image filenames (assuming you know the filenames or they are dynamically obtained)
+  const flyerImages = [
+    "1.jpg",
+    "2.jpg",
+    "3.jpg",
+    "4.jpg",
+    "5.jpg",
+    // Add more filenames as needed
+  ];
+
+  // Function to create image elements and append them to the container
+  function displayFlyerImages(images) {
+    images.forEach((image) => {
+      const imgElement = document.createElement("img");
+      imgElement.src = `./assets/flyers/${image}`;
+      imgElement.alt = "Flyer";
+      imgElement.classList.add("img-fluid", "my-3"); // Bootstrap class for responsive images
+      flyersContainer.appendChild(imgElement);
+    });
+  }
+
+  // Call the function to display flyer images
+  displayFlyerImages(flyerImages);
 });
