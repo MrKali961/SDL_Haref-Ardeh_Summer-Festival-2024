@@ -1,14 +1,14 @@
 body {
   margin-top: 7rem;
-  background-color: black;
+  background-color: white;
   /* background-image: url(./assets/SDL_Logo.jpg); */
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
   background-repeat: no-repeat;
-  color: white;
-  
+  color: black;
 }
+
 .navbar-brand img {
   max-height: 40px;
   width: auto;
@@ -26,7 +26,9 @@ h2 {
 .card {
   margin: 15px 0;
   transition: transform 0.2s;
+  background-color: white;
   color: black;
+  height: auto;
 }
 
 .card:hover {
@@ -34,8 +36,8 @@ h2 {
 }
 
 .card-img-top {
-  height: auto;
-  max-height: 300px;
+  height: 100%;
+  max-height: 200px;
   object-fit: contain;
 }
 
@@ -46,4 +48,17 @@ h2 {
   padding: 10px 20px;
   cursor: pointer;
   transition: background-color 0.2s;
+}
+
+@media (max-width: 576px) {
+  #other-prizes-container .col-12 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .card-img-top {
+    height: 10%;
+    max-height: 200px;
+    object-fit: contain;
+    padding: 1rem;
+  }
 }
